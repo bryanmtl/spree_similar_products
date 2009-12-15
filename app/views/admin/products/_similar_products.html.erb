@@ -1,0 +1,27 @@
+
+
+<h2>Attach Similar Products</h2>
+	<% @products = Product.active %>
+		<% @num_col = @products.length / 2 %>
+		<% if @num_col%2 != 0 %>
+			<% @num_col1 = @num_col+1 %>
+		<% else %>
+			<% @num_col1 = @num_col %>
+		<%end %>
+			<% @num_show = 1 %>
+
+<div style='width:310px; float:left;'>
+<% for product in @products %>
+	<% unless product == @product %>
+		<%= check_box_tag "product[similar_product_ids][]", product.id, @product.similar_products.include?(product) %>
+		<%= product.name %><br />
+	<% end %>
+		<% @num_show += 1 %>
+		<% if @num_show == @num_col1+1 %>
+			</div>
+			<div style='width:310px; float:left; '>
+		<% elsif @num_show > @products.length %>
+		</div><div class='clear'></div>
+		<% end %>
+<% end %>
+<div class='clear'></div>
